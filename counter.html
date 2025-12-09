@@ -1,0 +1,149 @@
+<!DOCTYPE html> <!-- this means the file is an html file, right? ||
+ it means this is an html5 (modern html) without it browser might render it 
+ as older rendering -->
+
+<!-- first node -->
+<html lang="en"> <!-- means the language of the file is english. 
+    do we have to mention that? || we do not need to but it helps in screen readers
+     and for seo and translation tools. the html is the top node of the dom -->
+
+<!-- the head contains meta data and css styling -->
+<head> <!-- the html above is the top node. the head contains metadata, 
+    like css links and title -->
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter App</title>
+    <style>
+        /* the body is the entire visible page area, and the container sits inside it*/
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #880c0c;
+        }
+                /* the container is the space that hold the text Counter App and 
+                also the buttons in it*/
+
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+       
+        /* h1 is going to display a text and it is going to be e81872 in color and 
+        the margine between it and the element under it is going to be 30px */
+        
+        h1 {
+            color: #e81872;
+            margin-bottom: 30px;
+        }
+        
+        
+        /* the count is a pre programmed element thta show a number and it starts from 0 
+          these are it is charatherstics and margin is the distance
+             between top and bottm and it has to be 20 px */
+
+        #count {
+            font-size: 48px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin: 20px 0;
+        }
+        
+        /* i think we are making css styling for one element named button for incrase 
+        and we are resuing that for reset and also decrease. the we specify each 
+        characterstics for each indivuial element*/
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        /*this is specfic for the increase one*/
+        /**/
+        button:hover {
+            background-color: #0c0000;
+        }
+                /*this is specfic for the decrease one*/
+
+        #decrease {
+            background-color: #f44336;
+        }
+                        /*this is specfic for the decrease one*/
+
+        #decrease:hover {
+            background-color: #ebebeb;
+        }
+                        /*this is specfic for the reset one*/
+
+        #reset {
+            background-color: #2196F3;
+        }
+                        /*this is specfic for the reset one*/
+
+        #reset:hover {
+            background-color: #ebe8e8;
+        }
+    </style>
+</head>
+
+<!-- the body contains the html elements (the visible structure) and javascript code. 
+ the js code is just in <script></script>. -->
+<body>
+
+    <!-- there is and html part and javasript part and both are visible to user-->
+    
+
+    <!-- -->
+    <div class="container">
+        <h1>Counter App</h1>
+        <div id="count">0</div>
+        <div>
+            <button id="decrease">-</button>
+            <button id="reset">Reset</button>
+            <button id="increase">+</button>
+        </div>
+    </div>
+
+    <!-- this is the js part-->
+    <script>
+        let count = 0; /*this starts the count at 0*/
+        
+        const countElement = document.getElementById("count"); 
+        const increaseButton = document.getElementById("increase");
+        const decreaseButton = document.getElementById("decrease");
+        const resetButton = document.getElementById("reset");
+        
+        function updateDisplay() {
+            countElement.textContent = count;
+        }
+        
+        increaseButton.addEventListener("click", function() {
+            count = count + 1;
+            updateDisplay();
+        });
+        
+        decreaseButton.addEventListener("click", function() {
+            count = count - 1;
+            updateDisplay();
+        });
+        
+        resetButton.addEventListener("click", function() {
+            count = 0;
+            updateDisplay();
+        });
+    </script>
+</body>
+
+</html>

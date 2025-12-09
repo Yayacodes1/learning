@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<body>
+    <div id="container">
+<html id = "counterText">Counter </html>
+<h1 id="counter">0</h1>
+
+
+    <div id = "buttons">
+<button id="increase">Increase</button>
+<button id="decrease">Decrease</button>
+<button id="reset">Reset</button>
+    </div>
+
+</div>
+<script>
+   
+   let count = 0
+   const counterElement = document.getElementById('counter');
+   const IncreaseElement = document.getElementById('increase');
+   const DecreaseElement = document.getElementById('decrease');
+   const ResetElement = document.getElementById('reset');
+
+
+   function DisplayIncrease() {
+    count= count+1;
+    counterElement.textContent =count
+
+   }
+   function DisplayDecrease() {
+    count= count-1;
+    counterElement.textContent =count
+
+   }
+
+   function DisplayReset() {
+    count= 0;
+    counterElement.textContent =count
+
+   }
+
+
+   IncreaseElement.addEventListener('click', DisplayIncrease);
+   DecreaseElement.addEventListener('click', DisplayDecrease);
+   ResetElement.addEventListener('click', DisplayReset);
+
+
+</script>
+</body>
+
+<head>
+<style>
+
+#counter {
+    color: blue;
+    font-size: 100px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+    #counterText {
+        color: #ff0909;
+        font-size: 50px;
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: bolder;
+    }
+
+    button {
+        color: rgb(255, 0, 191);
+        font: 1em sans-serif;
+        font-size: 24px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        
+    }
+    #buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+#container {
+    color: rgb(186, 218, 0);
+    background-color: black;
+    justify-content: center;
+    
+}
+
+
+</style>
+
+</head>
+
+
+
+
+</html>
