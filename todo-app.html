@@ -1,4 +1,6 @@
-
+<!DOCTYPE html>
+<html>
+    <body>
     <!-- Container div that starts at line 3 and goes to line 12 - this encapsulates the ToDo App heading, 
          the "What do you want to do today?" text, the input area, and the button -->
     <div id = "container">
@@ -16,7 +18,10 @@
         <button id="ButtonElement">Add to list</button>
 
     </div>
-    
+
+
+
+  
 <script>
     // Constant for the container div - this is the div we created in HTML that will show our todo items
     const container = document.getElementById('container');
@@ -27,12 +32,18 @@
     // Constant for the button element - this is the button that makes changes when we tap on it
     const ButtonElement = document.getElementById('ButtonElement');
 
+
     // Function that creates the checkbox and shows the text next to it that we enter
     function makeText(){
+        // Create the delete button element - this is inside the makeText function so we can see it with every iteration
+        // The deleteElement is not just referring to elements, it's actually also creating them
+        // That's why we need to make it inside the function - so each todo item gets its own delete button
+        const deleteElement = document.createElement("button");
+
         // Create the checkbox element - this is inside the function so it creates a new checkbox every time
         // Having it inside the function means it will repeat itself and create a new checkbox for each todo item
         const checkBoxElement = document.createElement("input");
-        
+
         // Set the checkbox type - this takes the checkbox element and gives it a specific type (checkbox)
         // This has to be after the checkbox has been defined
         checkBoxElement.type ="checkbox";
@@ -40,6 +51,9 @@
         // Create a new paragraph element - document scans the whole file and creates a paragraph element
         let newParagraph = document.createElement("p");
         
+        // Set the delete button's text content to "Delete Task" - this will show on the button
+        deleteElement.textContent = "Delete Task";
+
         // Set the paragraph's text content to be the text element's value - this is what the user enters in the input
         newParagraph.textContent = textElement.value ;
         
@@ -53,23 +67,58 @@
         
         // Add the checkbox to the todoItem container - todoItem is going to contain the checkbox element
         todoItem.appendChild(checkBoxElement);
-        
+        textElement.value = "";
+        // Add the delete button to the todoItem container - this is the div that's going to show every time we run the function
+        todoItem.appendChild(deleteElement);
+       
         // Add the todoItem div to the container - the todoItem itself as a div is going to be shown inside 
         // the container that we created at the beginning in the HTML side
         // The container div is going to show the todo items after we tap on "Add to list"
         // We use container.appendChild(todoItem) instead of just leaving todoItem because we need something 
         // that's already inside the HTML that will show our todo item
         container.appendChild(todoItem);
+        
+        // Add event listener to the delete button - this uses an ANONYMOUS FUNCTION
+        // ANONYMOUS FUNCTION EXPLANATION:
+        // An anonymous function is a function without a name - it's written as: function() { ... }
+        // We use it here because we need a function that knows which specific delete button was clicked
+        // When the delete button is clicked, "this" refers to the button that was clicked
+        // "this.parentElement" gets the todoItem div (the parent of the button)
+        // ".remove()" deletes that specific todoItem from the page
+        // This way, each delete button knows exactly which task to delete - the one it belongs to
+        deleteElement.addEventListener("click", function() {
+            // "this" = the delete button that was clicked
+            // "this.parentElement" = the todoItem div that contains this button
+            // ".remove()" = deletes that exact todoItem from the page
+          
+          
+            this.parentElement.remove();  // Deletes the exact task using "this" to identify which one
+            textElement.value = "";
 
+        });
     }
+    
     
     // Add event listener to the button - this waits for someone to press on the button so that everything appears on the screen
     // It uses "click" event and calls the makeText function when the button is clicked
     ButtonElement.addEventListener("click", makeText);
 
+
 </script>
-
-
 
 </body>
 
+<head>
+    <style>
+
+
+#container {
+    background-color: brown;
+}
+div{
+    background-color: blue;
+}
+    </style>
+</head>
+
+</html>
