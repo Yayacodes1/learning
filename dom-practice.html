@@ -19,7 +19,21 @@
         </div>
 
         <script>
-            
+            //get ids and save as consts
+            const elementButton = document.getElementById("createButton");
+            const elementContainer = document.getElementById("container");
+            let num = 0;
+            //write function the is called to make component 
+            function maketext(){
+                let newParagraph = document.createElement("p");
+                newParagraph.textContent = "hello" + num;
+                num++;
+                elementContainer.appendChild(newParagraph);
+                
+                
+            }
+            elementButton.addEventListener('click', maketext);
+
         </script>
     </body>
 </html>

@@ -1,0 +1,75 @@
+
+    <!-- Container div that starts at line 3 and goes to line 12 - this encapsulates the ToDo App heading, 
+         the "What do you want to do today?" text, the input area, and the button -->
+    <div id = "container">
+        
+        <!-- ToDo App heading -->
+        <h1>ToDo App</h1>
+
+        <!-- Text asking what the user wants to do today -->
+        <h5 >What do you want to do today?</h5>
+        
+        <!-- Input area where user can type in their todo - its id is "text" -->
+        <input id = "text" >
+
+        <!-- Button with id "ButtonElement" that triggers the function when clicked -->
+        <button id="ButtonElement">Add to list</button>
+
+    </div>
+    
+<script>
+    // Constant for the container div - this is the div we created in HTML that will show our todo items
+    const container = document.getElementById('container');
+    
+    // Constant for the text element - this is the input area where we type in our todos
+    const textElement = document.getElementById('text');
+    
+    // Constant for the button element - this is the button that makes changes when we tap on it
+    const ButtonElement = document.getElementById('ButtonElement');
+
+    // Function that creates the checkbox and shows the text next to it that we enter
+    function makeText(){
+        // Create the checkbox element - this is inside the function so it creates a new checkbox every time
+        // Having it inside the function means it will repeat itself and create a new checkbox for each todo item
+        const checkBoxElement = document.createElement("input");
+        
+        // Set the checkbox type - this takes the checkbox element and gives it a specific type (checkbox)
+        // This has to be after the checkbox has been defined
+        checkBoxElement.type ="checkbox";
+
+        // Create a new paragraph element - document scans the whole file and creates a paragraph element
+        let newParagraph = document.createElement("p");
+        
+        // Set the paragraph's text content to be the text element's value - this is what the user enters in the input
+        newParagraph.textContent = textElement.value ;
+        
+        // Create a div named todoItem - this creates a div inside JavaScript
+        // We want this inside the function so it can be created every time the function runs
+        // This provides space/container to hold the new paragraph and also to contain the checkbox element
+        let todoItem = document.createElement("div")
+        
+        // Add the paragraph to the todoItem container - todoItem is going to contain the paragraph
+        todoItem.appendChild(newParagraph);
+        
+        // Add the checkbox to the todoItem container - todoItem is going to contain the checkbox element
+        todoItem.appendChild(checkBoxElement);
+        
+        // Add the todoItem div to the container - the todoItem itself as a div is going to be shown inside 
+        // the container that we created at the beginning in the HTML side
+        // The container div is going to show the todo items after we tap on "Add to list"
+        // We use container.appendChild(todoItem) instead of just leaving todoItem because we need something 
+        // that's already inside the HTML that will show our todo item
+        container.appendChild(todoItem);
+
+    }
+    
+    // Add event listener to the button - this waits for someone to press on the button so that everything appears on the screen
+    // It uses "click" event and calls the makeText function when the button is clicked
+    ButtonElement.addEventListener("click", makeText);
+
+</script>
+
+
+
+</body>
+
