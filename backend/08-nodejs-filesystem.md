@@ -34,14 +34,14 @@ const fs = require('fs').promises;
 
 async function readFile() {
     try {
-        const data = await fs.readFile('file.txt', 'utf8');
+        const data =  await fs.readFile('file.txt', 'utf8');
         console.log(data);
     } catch (err) {
         console.error('Error:', err);
     }
 }
 
-readFile();
+ readFile();
 ```
 
 ### 2. Writing Files
@@ -81,6 +81,8 @@ if (fs.existsSync('file.txt')) {
     console.log('File exists!');
 }
 ```
+
+
 
 ### 4. Working with Directories
 
