@@ -44,7 +44,7 @@ server.listen(3000);
 const http = require('http');
 
 const server = http.createServer((req, res) => {
-    // Get request method
+    // Get request method and print it out
     console.log('Method:', req.method);
     
     // Get request URL
