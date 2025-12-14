@@ -4,9 +4,6 @@ function captalize(str) {
 }
 
 
-//console.log(captalize('yahya loves amal'));
-
-
 
 function reverse(str){
     const strArray = str.split('');
