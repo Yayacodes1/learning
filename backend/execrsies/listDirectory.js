@@ -8,7 +8,8 @@ async function list(dirPath) {
         for(let file of files){
             const filePath =  path.join(dirPath, file); 
             const size = await fs.stat(filePath);
-            console.log("File: ", file, `is ${size} in size`);
+
+            console.log("File: ", file, `is ${size.size} in size`);
             
         }
         
