@@ -215,14 +215,20 @@ app.use(express.static('public'));
 
 ### 7. Response Methods
 ```javascript
+// Route handler for /json endpoint
+// When user visits /json, sends a JSON response with a message
 app.get('/json', (req, res) => {
     res.json({ message: 'Hello' });
 });
 
+// Route handler for /status endpoint
+// When user visits /status, returns a 404 status code with "Not Found" message
 app.get('/status', (req, res) => {
     res.status(404).send('Not Found');
 });
 
+// Route handler for /redirect endpoint
+// When user visits /redirect, redirects them back to the root URL (/)
 app.get('/redirect', (req, res) => {
     res.redirect('/');
 });
@@ -230,13 +236,19 @@ app.get('/redirect', (req, res) => {
 
 ### 8. Error Handling
 ```javascript
+// Route handler for /error endpoint
+// When user visits /error, this throws an error to demonstrate error handling
 app.get('/error', (req, res) => {
     throw new Error('Something went wrong!');
 });
 
 // Error handling middleware (must be last)
+// This middleware catches any errors thrown in route handlers
+// It has 4 parameters: err (error object), req (request), res (response), next (next middleware)
 app.use((err, req, res, next) => {
+    // Log the full error stack trace to the server console for debugging
     console.error(err.stack);
+    // Send a 500 Internal Server Error status with a message to the browser
     res.status(500).send('Something broke!');
 });
 ```
