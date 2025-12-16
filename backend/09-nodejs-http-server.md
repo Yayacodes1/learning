@@ -121,7 +121,7 @@ const server = http.createServer((req, res) => {
         if (err) {
             res.writeHead(404);
             res.end('File not found');
-        } else {q
+        } else {
             res.writeHead(200, { 'Content-Type': contentType });
             res.end(content);
         }
