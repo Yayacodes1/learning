@@ -256,25 +256,40 @@ app.use((err, req, res, next) => {
 ### 9. Router (Organizing Routes)
 ```javascript
 // routes/users.js
+// routes/users.js
+// Import Express module to create a router
 const express = require('express');
+// Create a new router instance to organize user-related routes
 const router = express.Router();
 
+// Route handler for GET /users (root of users router)
+// When user visits /users, sends "All users" as response
 router.get('/', (req, res) => {
     res.send('All users');
 });
 
+// Route handler for GET /users/:id (dynamic route with id parameter)
+// When user visits /users/123, :id becomes 123 and sends "User 123"
 router.get('/:id', (req, res) => {
     res.send(`User ${req.params.id}`);
 });
 
+// Export the router so it can be imported and used in app.js
 module.exports = router;
 
 // app.js
+// Import Express module to create the main application
 const express = require('express');
+// Create the main Express app instance
 const app = express();
+// Import the users router from the routes/users.js file
 const usersRouter = require('./routes/users');
 
-app.use('/users', usersRouter);
+// Mount the users router at /users path
+// All routes defined in usersRouter will be accessible under /users
+// Example: router.get('/') becomes accessible at /users
+//          router.get('/:id') becomes accessible at /users/:id
+app.use('/users', usersRouter); n
 ```
 
 ### 10. CORS (Cross-Origin Resource Sharing)
