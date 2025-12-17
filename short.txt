@@ -1,0 +1,8 @@
+give me one simple hint only
+
+
+explain intensinvey
+Give me the intuition and explain it like I'm a 12-year-old
+
+If I ask a question that would have a short answer, always give me a short answer. 
+Make sure to run this file with each and every question I ask. 

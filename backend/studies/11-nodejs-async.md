@@ -177,6 +177,7 @@ const fs = require('fs');
 // Convert callback to promise
 const readFile = util.promisify(fs.readFile);
 
+
 async function read() {
     try {
         const data = await readFile('file.txt', 'utf8');
