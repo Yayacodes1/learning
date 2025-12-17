@@ -96,34 +96,54 @@ fs.readFile('file.txt', 'utf8')
 
 **Promise.all (run in parallel):**
 ```javascript
-const fs = require('fs').promises;
-
 Promise.all([
-    fs.readFile('file1.txt', 'utf8'),
-    fs.readFile('file2.txt', 'utf8')
+    fs.readFile('file1.txt', 'utf8'),  // ← Starts reading immediately
+    fs.readFile('file2.txt', 'utf8')   // ← Starts reading immediately (at the same time!)
 ])
-    .then(([data1, data2]) => {
-        console.log(data1, data2);
-    })
-    .catch(err => console.error(err));
+.then(([data1, data2]) => {
+    // This runs when BOTH files are done
+    // data1 = file1.txt content
+    // data2 = file2.txt content
+    console.log(data1, data2);  // Prints both at once
+})
+.catch(err => {
+    // If EITHER file fails, this runs
+    console.error(err);
+});
 ```
 
 ### 3. Async/Await
 Modern way to write asynchronous code - makes it look synchronous!
 
 ```javascript
+// Import the file system module with Promise-based methods
+// fs.promises provides async functions that return Promises instead of using callbacks
 const fs = require('fs').promises;
 
+// Define an async function - this allows us to use 'await' inside
+// Async functions automatically return a Promise
 async function readFiles() {
     try {
+        // Read file1.txt and wait for it to complete
+        // 'await' pauses execution here until the file is read
+        // data1 will contain the content of file1.txt
         const data1 = await fs.readFile('file1.txt', 'utf8');
+        
+        // After file1 is read, read file2.txt and wait for it to complete
+        // Note: This reads files SEQUENTIALLY (one after another), not in parallel
+        // data2 will contain the content of file2.txt
         const data2 = await fs.readFile('file2.txt', 'utf8');
+        
+        // Once both files are read, log their contents
         console.log(data1, data2);
     } catch (err) {
+        // If ANY error occurs (file not found, permission denied, etc.), catch it here
+        // This replaces the .catch() method from Promise chains
         console.error('Error:', err);
     }
 }
 
+// Call the async function to execute it
 readFiles();
 ```
 
@@ -131,12 +151,19 @@ readFiles();
 ```javascript
 async function readFilesParallel() {
     try {
+        // Promise.all starts BOTH file reads simultaneously
         const [data1, data2] = await Promise.all([
-            fs.readFile('file1.txt', 'utf8'),
-            fs.readFile('file2.txt', 'utf8')
+            fs.readFile('file1.txt', 'utf8'),  // ← Starts reading
+            fs.readFile('file2.txt', 'utf8')   // ← Starts reading (at the same time!)
         ]);
+        // ↑ Waits for BOTH to finish, then destructures the array
+        // data1 = file1.txt content
+        // data2 = file2.txt content
+        
+        // Log both file contents
         console.log(data1, data2);
     } catch (err) {
+        // If EITHER file fails, this catches the error
         console.error(err);
     }
 }
