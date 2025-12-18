@@ -171,18 +171,33 @@ async function readFilesParallel() {
 
 ### 4. Converting Callbacks to Promises
 ```javascript
+// Import the util module - provides utility functions including promisify
+// util.promisify converts callback-based functions to Promise-based functions
 const util = require('util');
+// Import the file system module (callback-based version, not .promises)
 const fs = require('fs');
 
-// Convert callback to promise
+// Convert callback-based fs.readFile to Promise-based readFile
+// This allows us to use async/await instead of callbacks
+// Before: fs.readFile('file.txt', 'utf8', (err, data) => { ... })
+// After: await readFile('file.txt', 'utf8')
 const readFile = util.promisify(fs.readFile);
 
-
+// Define an async function - allows us to use 'await' inside
+// Async functions automatically return a Promise
 async function read() {
     try {
+        // Read the file and wait for it to complete
+        // 'await' pauses execution here until the file is read
+        // The readFile function now returns a Promise (thanks to promisify)
+        // data will contain the file content when reading is complete
         const data = await readFile('file.txt', 'utf8');
+        
+        // Log the file content after it's been read
         console.log(data);
     } catch (err) {
+        // If an error occurs (file not found, permission denied, etc.)
+        // catch block handles it - this replaces .catch() from Promise chains
         console.error(err);
     }
 }
@@ -190,15 +205,33 @@ async function read() {
 
 ### 5. Async in Express Routes
 ```javascript
+// Import Express framework to create a web server
 const express = require('express');
+// Create an Express application instance
 const app = express();
+// Import file system module with Promise-based methods (for async/await)
 const fs = require('fs').promises;
 
+// Define a GET route at '/data' endpoint
+// The route handler is an async function to handle asynchronous file operations
 app.get('/data', async (req, res) => {
+    // req = request object (contains info about the incoming request)
+    // res = response object (used to send data back to the client)
     try {
+        // Read the data.json file asynchronously and wait for it to complete
+        // 'await' pauses here until the file is read
+        // The file content is returned as a string
         const data = await fs.readFile('data.json', 'utf8');
+        
+        // Parse the JSON string into a JavaScript object
+        // JSON.parse() converts the string to an object
+        // Then send it as JSON response to the browser/client
         res.json(JSON.parse(data));
     } catch (err) {
+        // If an error occurs (file not found, invalid JSON, etc.)
+        // Send a 500 Internal Server Error status with error message
+        // res.status(500) sets the HTTP status code
+        // res.json() sends the error as JSON response
         res.status(500).json({ error: err.message });
     }
 });
@@ -207,54 +240,95 @@ app.get('/data', async (req, res) => {
 ### 6. Error Handling Patterns
 ```javascript
 // Try-catch with async/await
+// Try-catch with async/await
+// This is the modern way to handle errors in async functions
 async function example() {
     try {
+        // Execute an async operation and wait for it to complete
+        // 'someAsyncOperation()' is a placeholder - replace with actual async function
+        // Examples: await fs.readFile(), await db.query(), await fetch()
         const result = await someAsyncOperation();
+        
+        // If successful, return the result
         return result;
     } catch (error) {
+        // If an error occurs, catch it here
+        // Log the error to console for debugging
         console.error('Error:', error);
+        
+        // Re-throw the error to let the caller handle it
+        // This allows error handling to propagate up the call stack
         throw error; // Re-throw if needed
     }
 }
 
 // Promise chain error handling
+// This is the older way to handle errors with Promises
+// Same functionality as try-catch, just different syntax
 someAsyncOperation()
     .then(result => {
+        // This runs when the operation is successful
+        // 'result' contains the data from the async operation
         // Success
     })
     .catch(error => {
+        // This runs when an error occurs
+        // 'error' contains the error information
         // Error
     });
 ```
 
 ### 7. Common Patterns
-
-**Sequential operations:**
 ```javascript
+**Sequential operations:**
+// Sequential = operations run one after another (not at the same time)
+// Each operation waits for the previous one to finish
 async function sequential() {
+    // Wait for operation1 to complete, then store result in result1
+    // This pauses execution here until operation1 finishes
     const result1 = await operation1();
+    
+    // Wait for operation2 to complete, passing result1 as input
+    // operation2 can use the result from operation1
+    // This also pauses execution until operation2 finishes
     const result2 = await operation2(result1);
+    
+    // Return the final result after both operations complete
     return result2;
 }
 ```
-
-**Parallel operations:**
 ```javascript
+**Parallel operations:**
+// Parallel = operations run at the same time (simultaneously)
+// Both operations start together and we wait for both to finish
+// Faster than sequential because operations don't wait for each other
 async function parallel() {
+    // Promise.all runs both operations at the same time
+    // operation1() and operation2() start simultaneously
+    // If one finishes faster, we wait for the slower one
+    // We get results when BOTH complete
     const [result1, result2] = await Promise.all([
-        operation1(),
-        operation2()
+        operation1(),  // Starts immediately
+        operation2()   // Starts immediately (at the same time as operation1)
     ]);
+    // Both operations have finished by this point
+    // Results are in the same order as the array: [operation1 result, operation2 result]
+    // Return both results as an object
     return { result1, result2 };
 }
 ```
-
-**Race condition (first to finish):**
 ```javascript
+**Race condition (first to finish):**
+// Promise.race runs multiple operations and returns the FIRST one to finish
+// Unlike Promise.all (waits for all), race only waits for the fastest one
+// The slower operations still run, but we don't wait for them
 const result = await Promise.race([
-    slowOperation(),
-    fastOperation()
+    slowOperation(),  // Takes longer (e.g., 5 seconds)
+    fastOperation()   // Takes less time (e.g., 1 second)
 ]);
+// Result = fastOperation's result (only the first to finish)
+// slowOperation still runs in background, but we don't wait for it
+// Use case: Timeout, fastest API response, first available resource
 ```
 
 ## Practice:
