@@ -236,7 +236,7 @@ npm install dotenv
 DB_HOST=localhost
 DB_USER=myuser
 DB_PASSWORD=mypassword
-DB_NAME=mydb
+DB_NAME=mydb 
 ```
 
 **In your code:**
