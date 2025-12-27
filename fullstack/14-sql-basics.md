@@ -248,13 +248,31 @@ WHERE users.id = 1;
 
 ## Practice:
 1. Write a SELECT query to get all completed tasks
+
+SELECT * FROM TASKS WHERE completed = true;
+
 2. Write an INSERT to add a new task
+
+INSERT INTO TASKS (title, completed)
+VALUES ('Learn SQL', false);
+
 3. Write an UPDATE to mark a task as completed
+
 4. Write a DELETE to remove a specific task
 5. Create a users table
+CREATE TABLE USERS(
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    "createdAt" TIMESTAMP DEFAULT NOW()
+)
 6. Add user_id to tasks table
+ALTER TABLE  TASKS 
+ADD COLUMN user_id INTEGER REFERENCES users(id)
 7. Write a JOIN query to get tasks with user emails
-
+SELECT  TASKS.*, users.email
+FROM TASKS
+JOIN USERS ON USERS.ID = TASKS.USER_ID
 ## Common Mistakes:
 
 **Forgetting WHERE clause:**
