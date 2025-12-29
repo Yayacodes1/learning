@@ -109,7 +109,7 @@ ADD COLUMN user_id INTEGER REFERENCES users(id) ON DELETE CASCADE;
 **Now tasks belong to users:**
 - Each task has a `user_id`
 - Users can only see/edit their own tasks
-- One user can have many tasks (one-to-many relationship)
+- One user can have many tasks (one-to-many  relationship) 
 
 ### 6. Registration Endpoint
 
