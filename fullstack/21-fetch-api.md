@@ -236,7 +236,7 @@ async function deleteTask(id) {
 <script>
     // Listen for form submission
     document.getElementById('taskForm').addEventListener('submit', async (e) => {
-        // Prevent default form submission (page reload)
+        //  Prevent default form submission (page reload)
         e.preventDefault();
         
         // Get values from form inputs
