@@ -257,7 +257,7 @@ async function deleteTask(id) {
             document.getElementById('taskTitle').value = '';
             document.getElementById('taskDescription').value = '';
             
-            // Reload tasks to show new one
+            // Reload tasks to show new  one
             loadTasks();
         } catch (error) {
             console.error('Error creating task:', error);
