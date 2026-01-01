@@ -320,5 +320,5 @@ function logout() {
 6. Add logout button
 
 ## Next Steps:
-Now deploy everything so it's live on the internet!
+Now deploy everything so it's  live on the internet!
 
