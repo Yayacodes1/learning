@@ -44,7 +44,7 @@ async function login(email, password) {
         // Parse response
         const data = await response.json();
         
-        // If login successful, data.token exists
+        // If login successful, data.token  exists
         if (data.token) {
             // Store token in localStorage
             localStorage.setItem('token', data.token);
